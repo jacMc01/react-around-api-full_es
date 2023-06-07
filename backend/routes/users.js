@@ -11,7 +11,6 @@ const {
 } = require('../controllers/users');
 
 
-
 usersAPI.get('/', getUsers);
 usersAPI.get('/me', getUser);
 usersAPI.get('/:id', getUserById);

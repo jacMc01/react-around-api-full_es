@@ -12,7 +12,7 @@ const {
 cardsAPI.get('/', getCards);
 cardsAPI.post('/', createCard);
 cardsAPI.delete('/:cardId', deleteCard);
-cardsAPI.put('/:cardId/likes', likeCard);
-cardsAPI.delete('/:cardId/likes', dislikeCard)
+cardsAPI.put('/likes/:cardId', likeCard);
+cardsAPI.delete('/likes/:cardId', dislikeCard)
 
 module.exports = cardsAPI;

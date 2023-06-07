@@ -1,11 +1,11 @@
 const cards = require('../models/card');
 
 function getCards(req, res){
-    console.log(`URL: http://localhost:3000${req.url}`);
-    res.json({ message: 'Conectado correctamente a la URL http://localhost:3000/cards' });
+    // console.log(`URL: http://localhost:3000${req.url}`);
+    // res.json({ message: 'Conectado correctamente a la URL http://localhost:3000/cards' });
 
-  cards.find({})
-  .then((cards) => res.send({data: cards}))
+  return cards.find({})
+  .then((cards) => res.send(cards))
   .catch((err) => res.status(500).send({message: `No se encuentra ninguna card`}));
 }
 
@@ -16,11 +16,10 @@ function createCard(req, res){
   }
 
   const {name, link} = req.body;
-  console.log(req.body);
-  console.log(req.card)
-
+  const owner = {"_id":req.user._id};
+  // console.log()
   cards.create({name, link, owner})
-  .then((card) => res.send({data: card}))
+  .then((card) => res.send(card))
   .catch((err) => res.status(400));
 }
 
@@ -31,18 +30,22 @@ function deleteCard(req, res){
     err.statusCode = 400;
     throw err;
   })
-  .then((card) => res.send({data: card}))
+  .then((card) => res.send(card))
   .catch((err) => res.status(400).send({message: `Hubo un error!`}));
 }
 
 function likeCard(req, res){
+  console.log("inside likeCard")
   cards.findByIdAndUpdate(req.params.cardId, { $addToSet: { likes: req.user._id } }, { new: true })
     .orFail(() => {
       const err = new Error('No se encuentra ninguna tarjeta con ese id :(');
       err.statusCode = 404;
       throw err;
     })
-    .then((card) => res.send({ data: card }))
+    .then((card) => {
+      console.log(card)
+      res.send(card)
+    })
     .catch((err) => res.status(400).send({ message: `Hubo un error! ${err}` }));
 }
 
