@@ -1,0 +1,33 @@
+.popuptooltip__profile-container {
+  width: 430px;
+  height: 330px;
+  margin-top: 90px;
+  background-color: #fff;
+  border-radius: 15px;
+}
+
+.popuptooltip__button-close {
+  position: absolute;
+  transform: translate(430px, -36px);
+  border: none;
+  background-color: transparent;
+}
+
+.popuptooltip__button-close img {
+  cursor: pointer;
+  transition: 1s;
+}
+
+.popuptooltip__button-close img:hover {
+  background-color: #545454;
+}
+
+
+@media screen and (max-width: 768px) {
+  .popuptooltip__button-close {
+    position: absolute;
+    transform: translate(200px, -60px);
+    border: none;
+    background-color: transparent;
+  }
+}
