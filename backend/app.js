@@ -24,6 +24,12 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+app.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('El servidor va a caer');
+  }, 0);
+});
+
 // iniciar sesion y registro
 const { login, createUser } = require('./controllers/users');
 app.post('/signin', login);

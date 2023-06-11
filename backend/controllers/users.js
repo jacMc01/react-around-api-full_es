@@ -7,7 +7,7 @@ var jwt = require('jsonwebtoken');
 function login(req, res){
 
   // obtain the username and password from the request body
-  console.log(req.body)
+  // console.log(req.body)
   const { email, password } = req.body;
 
   return userModel.findUserByCredentials(email, password)
