@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseURL = 'http://localhost:4000';
+const baseURL = "https://https://api.mackyuniverse.desarrollointerno.com";
 
 const axiosAuth = axios.create({
   baseURL: baseURL
