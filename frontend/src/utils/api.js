@@ -5,7 +5,7 @@ import axios from "axios";
 class Api {
   constructor(token) {
     this.api_base = axios.create({
-      baseURL: "https://https://api.mackyuniverse.desarrollointerno.com"
+      baseURL: "https://api.mackyuniverse.desarrollointerno.com"
     });
 
     this.authHeaders = {
