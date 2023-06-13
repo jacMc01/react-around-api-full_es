@@ -1,13 +1,8 @@
 const userModel = require('../models/user');
 const bcrypt = require('bcryptjs');
-
-var jwt = require('jsonwebtoken');
-
+let jwt = require('jsonwebtoken');
 
 function login(req, res){
-
-  // obtain the username and password from the request body
-  // console.log(req.body)
   const { email, password } = req.body;
 
   return userModel.findUserByCredentials(email, password)
@@ -25,23 +20,21 @@ function login(req, res){
 }
 
 function getUsers(req, res){
-    // console.log(`URL: http://localhost:3000${req.url}`);
-    // res.json({ message: 'Conectado correctamente a la URL http://localhost:3000/users' });
     return userModel.find({})
-    .then((users) => res.send(users))
-    .catch((err) => res.status(500).send({message: `No se encuentra el recurso`}))
+      .then((users) => res.send(users))
+      .catch((err) => res.status(500).send({message: `No se encuentra el recurso`}));
 }
 
 function getUser(req, res){
   return userModel.findById(req.user._id)
   .then((user) => res.send(user))
-  .catch((err) => res.status(500).send({message: `No se encuentra el recurso`}))
+  .catch((err) => res.status(500).send({message: `No se encuentra el recurso`}));
 }
 
 function getUserById(req, res){
   userModel.findById(req.params.id)
   .orFail(() => {
-    const err = new Error('No se encontro ningun usuario con ese id')
+    const err = new Error('No se encontro ningun usuario con ese id');
     err.statusCode = 404;
     throw err;
   })
@@ -74,8 +67,6 @@ function createUser(req, res) {
 }
 
 function addProfile(req, res){
-  console.log(req.body)
-  console.log(req.user)
   userModel.findByIdAndUpdate(req.user._id, req.body, {new: true})
   .orFail(() => {
     const err = new Error('No se encontro ningun usuario con ese id')
@@ -91,13 +82,13 @@ function addProfile(req, res){
 
 function addAvatar(req, res){
   userModel.findByIdAndUpdate(req.user._id, {avatar: req.body.avatar}, {new: true})
-  .orFail(() => {
-    const err = new Error('No se encontro ningun usuario con ese id')
-    err.statusCode = 404;
-    throw err;
+    .orFail(() => {
+      const err = new Error('No se encontro ningun usuario con ese id');
+      err.statusCode = 404;
+      throw err;
   })
-  .then((updatedUser) => res.send(updatedUser))
-  .catch((err) => res.status(400).send({message: `Hubo un error al actualizar el avatar: ${err}`}));
+    .then((updatedUser) => res.send(updatedUser))
+    .catch((err) => res.status(400).send({message: `Hubo un error al actualizar el avatar: ${err}`}));
 }
 
 module.exports = {

@@ -1,12 +1,9 @@
 const cards = require('../models/card');
 
 function getCards(req, res){
-    // console.log(`URL: http://localhost:3000${req.url}`);
-    // res.json({ message: 'Conectado correctamente a la URL http://localhost:3000/cards' });
-
   return cards.find({})
-  .then((cards) => res.send(cards))
-  .catch((err) => res.status(500).send({message: `No se encuentra ninguna card`}));
+    .then((cards) => res.send(cards))
+    .catch((err) => res.status(500).send({message: `No se encuentra ninguna card`}));
 }
 
 function createCard(req, res){
@@ -17,18 +14,18 @@ function createCard(req, res){
 
   const {name, link} = req.body;
   const owner = {"_id":req.user._id};
-  // console.log()
+
   cards.create({name, link, owner})
-  .then((card) => res.send(card))
-  .catch((err) => res.status(400));
+    .then((card) => res.send(card))
+    .catch((err) => res.status(400));
 }
 
 function deleteCard(req, res){
   cards.findByIdAndDelete(req.params.cardId)
-  .orFail(() => {
-    const err = new Error('No se encuentra ninguna card con ese id :(');
-    err.statusCode = 400;
-    throw err;
+    .orFail(() => {
+      const err = new Error('No se encuentra ninguna card con ese id :(');
+      err.statusCode = 400;
+      throw err;
   })
   .then((card) => res.send(card))
   .catch((err) => res.status(400).send({message: `Hubo un error!`}));

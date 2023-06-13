@@ -38,8 +38,8 @@ const userSchema = new mongoose.Schema({
     validate: {
       validator: (v) => {
         return validator.isEmail(v);
-      }
-    }
+      },
+    },
   },
 
   password: {
