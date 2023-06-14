@@ -32,7 +32,6 @@ function deleteCard(req, res){
 }
 
 function likeCard(req, res){
-  console.log("inside likeCard")
   cards.findByIdAndUpdate(req.params.cardId, { $addToSet: { likes: req.user._id } }, { new: true })
     .orFail(() => {
       const err = new Error('No se encuentra ninguna tarjeta con ese id :(');
@@ -40,7 +39,6 @@ function likeCard(req, res){
       throw err;
     })
     .then((card) => {
-      console.log(card)
       res.send(card)
     })
     .catch((err) => res.status(400).send({ message: `Hubo un error! ${err}` }));

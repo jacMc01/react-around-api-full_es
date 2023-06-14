@@ -1,14 +1,12 @@
 const userModel = require('../models/user');
 const bcrypt = require('bcryptjs');
-let jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
 
 function login(req, res){
   const { email, password } = req.body;
 
   return userModel.findUserByCredentials(email, password)
     .then((user) => {
-      console.log('user')
-      console.log(user)
       res.send({
         token: jwt.sign({ _id: user._id }, 'super-strong-secret', { expiresIn: '7d' }),
       });
@@ -74,7 +72,6 @@ function addProfile(req, res){
     throw err;
   })
   .then((updatedUser) => {
-    console.log(updatedUser)
     res.send(updatedUser)
   })
   .catch((err) => res.status(400).send({message: `Hubo un error al actualizar el perfil: ${err}`}));
